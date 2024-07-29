@@ -1,0 +1,66 @@
+<mat-card>
+  <mat-card-title>Job Card Management</mat-card-title>
+  <mat-card-content>
+    <button mat-raised-button color="primary" (click)="openCreateJobCardDialog()">Create New Job Card</button>
+    <table mat-table [dataSource]="jobCards" class="mat-elevation-z8">
+      <!-- Car Received Date Column -->
+      <ng-container matColumnDef="carReceivedDate">
+        <mat-header-cell *matHeaderCellDef> Car Received Date </mat-header-cell>
+        <mat-cell *matCellDef="let jobCard"> {{ jobCard.carReceivedDate }} </mat-cell>
+      </ng-container>
+      
+      <!-- Car Make Column -->
+      <ng-container matColumnDef="carMake">
+        <mat-header-cell *matHeaderCellDef> Car Make </mat-header-cell>
+        <mat-cell *matCellDef="let jobCard"> {{ jobCard.carMake }} </mat-cell>
+      </ng-container>
+      
+      <!-- Car Model Column -->
+      <ng-container matColumnDef="carModel">
+        <mat-header-cell *matHeaderCellDef> Car Model </mat-header-cell>
+        <mat-cell *matCellDef="let jobCard"> {{ jobCard.carModel }} </mat-cell>
+      </ng-container>
+      
+      <!-- Customer Name Column -->
+      <ng-container matColumnDef="customerName">
+        <mat-header-cell *matHeaderCellDef> Customer Name </mat-header-cell>
+        <mat-cell *matCellDef="let jobCard"> {{ jobCard.customerName }} </mat-cell>
+      </ng-container>
+      
+      <!-- Customer Phone Number Column -->
+      <ng-container matColumnDef="customerPhone">
+        <mat-header-cell *matHeaderCellDef> Customer Phone Number </mat-header-cell>
+        <mat-cell *matCellDef="let jobCard"> {{ jobCard.customerPhone }} </mat-cell>
+      </ng-container>
+      
+      <!-- Current Status Column -->
+      <ng-container matColumnDef="currentStatus">
+        <mat-header-cell *matHeaderCellDef> Current Status </mat-header-cell>
+        <mat-cell *matCellDef="let jobCard"> {{ jobCard.currentStatus }} </mat-cell>
+      </ng-container>
+      
+      <!-- Expected Delivery Date Column -->
+      <ng-container matColumnDef="expectedDeliveryDate">
+        <mat-header-cell *matHeaderCellDef> Expected Delivery Date </mat-header-cell>
+        <mat-cell *matCellDef="let jobCard"> {{ jobCard.expectedDeliveryDate }} </mat-cell>
+      </ng-container>
+      
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+        <mat-cell *matCellDef="let jobCard">
+          <button mat-icon-button color="primary" (click)="viewJobCard(jobCard)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteJobCard(jobCard)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      
+    </table>
+  </mat-card-content>
+</mat-card>

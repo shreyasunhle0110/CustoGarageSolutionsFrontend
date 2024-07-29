@@ -1,0 +1,206 @@
+<mat-dialog-content class="wide-dialog-content">
+  <form [formGroup]="jobCardForm">
+    <mat-horizontal-stepper [linear]="true">
+      <!-- Step 1 -->
+      <mat-step [stepControl]="jobCardForm">
+        <ng-template matStepLabel>Customer and Car Details</ng-template>
+
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Customer Name</mat-label>
+            <input matInput formControlName="customerName">
+            <mat-error *ngIf="jobCardForm.get('customerName')?.hasError('required')">
+              Customer Name is required
+            </mat-error>
+            <mat-error *ngIf="jobCardForm.get('customerName')?.hasError('minlength')">
+              Minimum length is 3 characters
+            </mat-error>
+            <mat-error *ngIf="jobCardForm.get('customerName')?.hasError('maxlength')">
+              Maximum length is 50 characters
+            </mat-error>
+            <mat-error *ngIf="jobCardForm.get('customerName')?.hasError('pattern')">
+              Customer Name is not Valid
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Customer Phone No</mat-label>
+            <input matInput formControlName="customerPhoneNo">
+            <mat-error *ngIf="jobCardForm.get('customerPhoneNo')?.hasError('required')">
+              Customer Phone No is required
+            </mat-error>
+            <mat-error *ngIf="jobCardForm.get('customerPhoneNo')?.hasError('pattern')">
+              Enter a valid 10-digit phone number
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Customer Address</mat-label>
+            <textarea matInput formControlName="customerAddress" rows="2"></textarea>
+            <mat-error *ngIf="jobCardForm.get('customerAddress')?.hasError('required')">
+              Customer Address is required
+            </mat-error>
+            <mat-error *ngIf="jobCardForm.get('customerAddress')?.hasError('minlength')">
+              Minimum length is 10 characters
+            </mat-error>
+            <mat-error *ngIf="jobCardForm.get('customerAddress')?.hasError('maxlength')">
+              Maximum length is 100 characters
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Car Make</mat-label>
+            <input matInput formControlName="carMake">
+            <mat-error *ngIf="jobCardForm.get('carMake')?.hasError('required')">
+              Car Make is required
+            </mat-error>
+            <mat-error *ngIf="jobCardForm.get('carMake')?.hasError('minlength')">
+              Minimum length is 2 characters
+            </mat-error>
+            <mat-error *ngIf="jobCardForm.get('carMake')?.hasError('maxlength')">
+              Maximum length is 30 characters
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Car Model</mat-label>
+            <input matInput formControlName="carModel">
+            <mat-error *ngIf="jobCardForm.get('carModel')?.hasError('required')">
+              Car Model is required
+            </mat-error>
+            <mat-error *ngIf="jobCardForm.get('carModel')?.hasError('minlength')">
+              Minimum length is 2 characters
+            </mat-error>
+            <mat-error *ngIf="jobCardForm.get('carModel')?.hasError('maxlength')">
+              Maximum length is 30 characters
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Car Mileage</mat-label>
+            <input matInput formControlName="carMileage">
+            <mat-error *ngIf="jobCardForm.get('carMileage')?.hasError('required')">
+              Car Mileage is required
+            </mat-error>
+            <mat-error *ngIf="jobCardForm.get('carMileage')?.hasError('pattern')">
+              Enter a valid mileage
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Car VIN No</mat-label>
+            <input matInput formControlName="carVinNo">
+            <mat-error *ngIf="jobCardForm.get('carVinNo')?.hasError('required')">
+              Car VIN No is required
+            </mat-error>
+            <mat-error *ngIf="jobCardForm.get('carVinNo')?.hasError('pattern')">
+              Enter a valid 17-character VIN
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Car Registration No</mat-label>
+            <input matInput formControlName="carRegistrationNo">
+            <mat-error *ngIf="jobCardForm.get('carRegistrationNo')?.hasError('required')">
+              Car Registration No is required
+            </mat-error>
+            <mat-error *ngIf="jobCardForm.get('carRegistrationNo')?.hasError('pattern')">
+              Enter a valid Registration No
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Expected Delivery Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="expectedDeliveryDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="jobCardForm.get('expectedDeliveryDate')?.hasError('required')">
+              Expected Delivery Date is required
+            </mat-error>
+            <mat-error *ngIf="jobCardForm.get('expectedDeliveryDate')?.hasError('invalidDate')">
+              Enter a valid future date
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+      <!-- Step 2 -->
+      <mat-step [stepControl]="jobCardForm">
+        <ng-template matStepLabel>Work Needed and Description</ng-template>
+        <div formArrayName="workItems">
+          <div *ngFor="let item of workItems.controls; let i = index" [formGroupName]="i" class="form-row">
+            <mat-form-field appearance="fill" class="full-width">
+              <mat-label>Work Needed</mat-label>
+              <input matInput formControlName="workNeeded">
+              <mat-error *ngIf="item.get('workNeeded')?.hasError('required')">
+                Work Needed is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="full-width">
+              <mat-label>Work Description</mat-label>
+              <input matInput formControlName="workDescription">
+              <mat-error *ngIf="item.get('workDescription')?.hasError('required')">
+                Work Description is required
+              </mat-error>
+            </mat-form-field>
+            <button mat-icon-button (click)="removeWorkItem(i)" *ngIf="!isViewMode()">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <button mat-button (click)="addWorkItem()" *ngIf="!isViewMode()">Add Work Item</button>
+        </div>
+        <div>
+          <button mat-button matStepperPrevious>Previous</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+      <!-- Step 3 -->
+      <mat-step [stepControl]="jobCardForm">
+        <ng-template matStepLabel>File Upload</ng-template>
+        <div formArrayName="fileUploads">
+          <div *ngFor="let item of fileUploads.controls; let i = index" [formGroupName]="i" class="form-row">
+            <mat-form-field appearance="fill">
+              <mat-label>Type</mat-label>
+              <mat-select formControlName="type">
+                <mat-option value="scratch">Scratch</mat-option>
+                <mat-option value="dent">Dent</mat-option>
+                <mat-option value="missing-part">Missing Part</mat-option>
+              </mat-select>
+              <mat-error *ngIf="item.get('type')?.hasError('required')">
+                Type is required
+              </mat-error>
+            </mat-form-field>
+            <app-file-upload formControlName="files"></app-file-upload>
+            <button mat-icon-button (click)="removeFileUpload(i)" *ngIf="!isViewMode()">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <button mat-button (click)="addFileUpload()" *ngIf="!isViewMode()">Add File Upload</button>
+        </div>
+        <div>
+          <button mat-button matStepperPrevious>Previous</button>
+          <button mat-button (click)="onSave()" *ngIf="!isViewMode()">Save</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+</mat-dialog-actions>

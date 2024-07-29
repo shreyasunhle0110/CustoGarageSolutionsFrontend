@@ -1,0 +1,7 @@
+<div class="file-upload-container">
+    <input type="file" (change)="handleFileInput($event)" multiple>
+    <div class="file-list">
+      <div *ngFor="let file of files">{{ file.name }}</div>
+    </div>
+  </div>
+  
